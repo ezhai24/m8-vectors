@@ -11,11 +11,11 @@ sample(marbles, 1)
 # - Randomly samples a marble
 # - Returns whether or not the person guessed accurately (preferrably a full phrase)
 MarbleGame <- function(guess) {
-  marbleColor <- sample(marbles, 1)
-  if(guess == marbleColor) {
-    return (paste(c("Correct the marble color was in fact ", marbleColor, "!"), collapse=""))
+  marble.color <- sample(marbles, 1)
+  if(guess == marble.color) {
+    return (paste(c("Correct the marble color was in fact ", marble.color, "!"), collapse=""))
   } else {
-    return (paste(c("Sorry the marble was", marbleColor, "and you guessed", guess, ":("), collapse=" "))
+    return (paste(c("Sorry the marble was", marble.color, "and you guessed", guess, ":("), collapse=" "))
   }
 }
 
@@ -24,25 +24,25 @@ MarbleGame("green")
 
 # Bonus: Play the marble game until you win, keeping track of how many tries you take
 CountMarbleGameTries <- function(guess) {
-  tryCount <- 1
+  try.count <- 1
   result <- MarbleGame(guess)
   while(startsWith(result, "Sorry")) {
-    tryCount <- tryCount + 1
+    try.count <- try.count + 1
     result <- MarbleGame(guess)
   }
-  print(paste(c("It took you", tryCount, "tries to win."), collapse=" "))
-  return (tryCount)
+  print(paste(c("It took you", try.count, "tries to win."), collapse=" "))
+  return (try.count)
 }
 
 ## Double bonus(answer not provided): play the game 1000X (until you win) and track the average number of tries
 # Is it what you expected based on the probability
-countAvgMarbleGameTries <- function(guess) {
-  avgTryCount <- 0
-  sessionsPlayed <- 1
+CountAvgMarbleGameTries <- function(guess) {
+  avg.try.count <- 0
+  sessions.played <- 1
   for(i in 1:1000){
-    tryCount <- CountMarbleGameTries(guess)
-    avgTryCount <- (avgTryCount + tryCount) / sessionsPlayed
-    sessionsPlayed <- sessionsPlayed + 1
+    try.count <- CountMarbleGameTries(guess)
+    avg.try.count <- (avg.try.count + try.count) / sessions.played
+    sessions.played <- sessions.played + 1
   }
-  return (avgTryCount)
+  return(paste(c("It took you on average", avg.try.count, "tries to win."), collapse=" "))
 }
