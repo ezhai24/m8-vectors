@@ -15,7 +15,7 @@ MarbleGame <- function(guess) {
   if(guess == marbleColor) {
     return (paste(c("Correct the marble color was in fact ", marbleColor, "!"), collapse=""))
   } else {
-    return (paste(c("Sorry the marble was ", marbleColor, " and you guessed ", guess, ":("), collapse=""))
+    return (paste(c("Sorry the marble was", marbleColor, "and you guessed", guess, ":("), collapse=" "))
   }
 }
 
@@ -27,11 +27,22 @@ CountMarbleGameTries <- function(guess) {
   tryCount <- 1
   result <- MarbleGame(guess)
   while(startsWith(result, "Sorry")) {
-    tryCount = tryCount + 1
+    tryCount <- tryCount + 1
     result <- MarbleGame(guess)
   }
-  return (paste(c("It took you ", tryCount, "tries to win."), collapse=" "))
+  print(paste(c("It took you", tryCount, "tries to win."), collapse=" "))
+  return (tryCount)
 }
 
 ## Double bonus(answer not provided): play the game 1000X (until you win) and track the average number of tries
 # Is it what you expected based on the probability
+countAvgMarbleGameTries <- function(guess) {
+  avgTryCount <- 0
+  sessionsPlayed <- 1
+  for(i in 1:1000){
+    tryCount <- CountMarbleGameTries(guess)
+    avgTryCount <- (avgTryCount + tryCount) / sessionsPlayed
+    sessionsPlayed <- sessionsPlayed + 1
+  }
+  return (avgTryCount)
+}
